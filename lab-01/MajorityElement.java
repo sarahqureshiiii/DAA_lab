@@ -1,7 +1,9 @@
+import java.util.Random;
 import java.util.Scanner;
 
 public class MajorityElement {
 
+    // Moore's Voting Algorithm
     public static int findCandidate(int[] arr) {
         int candidate = arr[0];
         int count = 1;
@@ -23,6 +25,7 @@ public class MajorityElement {
         return candidate;
     }
 
+    // Verify if the candidate is actually the majority element
     public static boolean isMajority(int[] arr, int candidate) {
         int count = 0;
 
@@ -37,6 +40,7 @@ public class MajorityElement {
     public static void main(String[] args) {
 
         Scanner sc = new Scanner(System.in);
+        Random rand = new Random();
 
         int n;
 
@@ -57,10 +61,22 @@ public class MajorityElement {
 
         int[] arr = new int[n];
 
-        System.out.println("Enter the array elements:");
+        int maxValue = 10; // Random numbers from 0 to 10
+
+        System.out.println("Generating random array...");
 
         for (int i = 0; i < n; i++) {
-            arr[i] = sc.nextInt();
+            arr[i] = rand.nextInt(maxValue + 1);
+        }
+
+        // Print original array only if size is manageable
+        if (n <= 50) {
+            System.out.print("\nOriginal Array: ");
+
+            for (int num : arr)
+                System.out.print(num + " ");
+
+            System.out.println();
         }
 
         long start = System.nanoTime();
@@ -69,10 +85,11 @@ public class MajorityElement {
 
         long end = System.nanoTime();
 
+        // Print result
         if (isMajority(arr, candidate))
-            System.out.println("Majority Element = " + candidate);
+            System.out.println("\nMajority Element = " + candidate);
         else
-            System.out.println("No Majority Element found.");
+            System.out.println("\nNo Majority Element found.");
 
         double timeTaken = (end - start) / 1_000_000.0;
 
